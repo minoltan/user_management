@@ -19,18 +19,7 @@
         <a [routerLink]="['/']" class="nav-link" >Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+        <a class="nav-link" href="#">Find People</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
@@ -42,7 +31,7 @@
   </div>
 </nav>
 
-<div class="container emp-profile">
+<div class="container theme-card">
   <form method="post">
     <div class="row">
       <div class="col-md-4">
@@ -52,17 +41,10 @@
       </div>
       <div class="col-md-6">
         <div class="profile-head">
-          <h3 class="text-secondary">{{profile.first_name}} {{profile.last_name}}</h3>
+          <h2 class="text-secondary" style="margin-bottom:0; font-weight:600">{{profile.first_name}} {{profile.last_name}}</h2>
           <h5 class="text-secondary">Web Developer and Designer</h5>
-          <p class="proile-rating">RANKINGS : <span>8/10</span><i class="fa fa-star" aria-hidden="true"></i></p>
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
-            </li>
-          </ul>
+          <p class="profile-rating">RANKINGS : <span>8/10</span><i class="fa fa-star text-warning ml-1" aria-hidden="true"></i></p>
+
         </div>
       </div>
       <div class="col-md-2">
@@ -72,11 +54,12 @@
     <div class="row">
       <div class="col-md-4">
         <div class="profile-work">
-          <h3>WORK LINK <span class="badge badge-secondary text-primary">Primary</span></h3>
+          <h3 class="mt-2 text-secondary">WORK LINK <span class="badge badge-secondary text-white">Primary</span></h3>
           <a href="">Website Link</a><br/>
           <a href="">Bootsnipp Profile</a><br/>
           <a href="">Bootply Profile</a>
-          <p>SKILLS</p>
+
+          <h3 class="mt-2 text-secondary">SKILLS</h3>
           <a href="">Web Designer</a><br/>
           <a href="">Web Developer</a><br/>
           <a href="">WordPress</a><br/>
@@ -85,6 +68,14 @@
         </div>
       </div>
       <div class="col-md-8">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
+          </li>
+        </ul>
         <div class="tab-content profile-tab" id="myTabContent">
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="row">
