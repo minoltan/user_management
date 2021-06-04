@@ -1,4 +1,4 @@
-<app-header (hrefID)="ScrollToSelectedPosition($event)"></app-header>
+<app-navigation></app-navigation>
 
 <div class="container">
   <h1 class="d-flex justify-content-center pt-2 primaryFont">Management</h1>
@@ -11,28 +11,26 @@
           <th>Last Name</th>
           <th>Email</th>
           <th>Role</th>
-          <th>Edit</th>
-          <th>Remove</th>
+          <th class="text-center">Action</th>
         </tr>
         <tbody>
         <tr *ngFor="let user of User">
           <td scope='row'>
-            <a [routerLink]="['/userDetail', user.id]" (click)="ChangeUserComponents(user.id)">{{user.id}}</a></td>
+            <a [routerLink]="['/userDetail', user.id]">{{user.id}}</a></td>
           <td scope='row'>
             <img src="{{user.avatar}}" alt="{{user.first_name}}">
             {{user.first_name}}</td>
           <td scope='row'>{{user.last_name}}</td>
           <td scope='row'>{{user.email}}</td>
           <td scope='row'>{{user.role}}</td>
-          <td>
-            <a class="btn waves-effect waves-float waves-green">
-              <i class="fas fa-setting theme-icon-secondary"></i>
+          <td class="text-center">
+            <a [routerLink]="['/userDetail', user.id]" class="btn waves-effect waves-float waves-green">
+              <i class="fas fa-cog theme-icon-secondary"></i>
             </a>
             <a class="btn btn-default waves-effect waves-float waves-red">
              <i class="fas fa-trash theme-icon-secondary"></i>
             </a>
           </td>
-
         </tr>
         </tbody>
       </table>
@@ -40,7 +38,7 @@
   <!--Pagination Section-->
   <div class="row">
     <div class="col-lg-6">
-      <p>Showing 5 out of 25 items</p>
+      <p class="text-secondary">Showing {{perPage}} out of {{totalItems}} items</p>
     </div>
     <div class="col-lg-6" >
       <div *ngIf="dataArray.length > 0 && paginationObj.Get_MaxPages() > 0" style="margin-bottom: 20px;">
@@ -74,7 +72,5 @@
       </div>
     </div>
   </div>
-
-  <div class="row" style="padding-bottom: 150px;"></div>
   </div>
 

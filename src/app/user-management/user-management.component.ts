@@ -12,10 +12,12 @@ import {GlobalPasserService} from "../Services/global-passer.service";
 export class UserManagementComponent implements OnInit {
   public User:any=[];
   public paginationObj: Pagination = new Pagination();
-  public dataArray: String[] = ["A", "B"];
+  public dataArray: String[] = [];
   public maxPages:number = 0;
+  public perPage:number = 0;
+  public totalItems:number = 0;
 
-  constructor(private apiService: APIService, private globalPasser: GlobalPasserService) { }
+  constructor(private apiService: APIService) { }
 
   ngOnInit(): void {
     this.GetAllUsers()
@@ -31,10 +33,6 @@ export class UserManagementComponent implements OnInit {
   GetAllUsers(){
     this.GetAllUserAPI()
   }
-
-  ChangeUserComponents(userID: any){
-    this.globalPasser.ChangeNavigationID(userID);
-  }
   //endregion
 
   //region API
@@ -43,6 +41,9 @@ export class UserManagementComponent implements OnInit {
       if (response) {
         console.log(response)
         this.User= response.data;
+        this.totalItems = response.total;
+        this.perPage = response.per_page
+        this.dataArray = response.data;
         this.maxPages = response.total_pages;
         this.ApiCallToLoadData(response.page, true);
 

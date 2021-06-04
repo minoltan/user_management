@@ -1,25 +1,4 @@
-/* Background Color */
-.primaryBgColor {
-  background-color:rgb(0, 0, 0);
-}
 
-.secondarBgColor {
-  color:rgb(255, 255, 255);
-}
-
-/* Text Color */
-.primaryTextColor{
-  color:rgb(255, 255, 255);
-}
-
-.secondaryTextColor{
-  color:rgb(0, 0, 0);
-}
-
-/* Font Style */
-.primaryText{
-  font-family: Gill Sans Extrabold, sans-serif !important;
-}
 
 /* Body Section */
 body {
@@ -35,7 +14,7 @@ body {
 }
 
 .theme-icon-secondary{
-  color: rgb(0, 0, 0);
+  color: #5bc0de;
   cursor: pointer;
   padding: 10px;
 }
@@ -146,8 +125,7 @@ body {
 }
 
 .page-link:hover{
-  color: #5bc0de;
-  background-color: black;
+  color: white;
+  background-color: #5bc0de;
 }
 
-/*Todo: give theme button, link, bg for all common themes*/
