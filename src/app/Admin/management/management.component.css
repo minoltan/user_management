@@ -1,0 +1,14 @@
+.imageBox{
+  width: 150px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.closeButton {
+  cursor: pointer;
+  position: absolute;
+  top: 56%;
+  right: 37%;
+  padding: 12px 16px;
+  transform: translate(0%, -50%);
+}

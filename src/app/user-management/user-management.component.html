@@ -1,0 +1,80 @@
+<app-header (hrefID)="ScrollToSelectedPosition($event)"></app-header>
+
+<div class="container">
+  <h1 class="d-flex justify-content-center pt-2 primaryFont">Management</h1>
+  <!--Table Section-->
+  <div class="row mt-5">
+      <table class="table table-striped">
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Edit</th>
+          <th>Remove</th>
+        </tr>
+        <tbody>
+        <tr *ngFor="let user of User">
+          <td scope='row'>
+            <a [routerLink]="['/userDetail', user.id]" (click)="ChangeUserComponents(user.id)">{{user.id}}</a></td>
+          <td scope='row'>
+            <img src="{{user.avatar}}" alt="{{user.first_name}}">
+            {{user.first_name}}</td>
+          <td scope='row'>{{user.last_name}}</td>
+          <td scope='row'>{{user.email}}</td>
+          <td scope='row'>{{user.role}}</td>
+          <td>
+            <a class="btn waves-effect waves-float waves-green">
+              <i class="fas fa-setting theme-icon-secondary"></i>
+            </a>
+            <a class="btn btn-default waves-effect waves-float waves-red">
+             <i class="fas fa-trash theme-icon-secondary"></i>
+            </a>
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  <!--Pagination Section-->
+  <div class="row">
+    <div class="col-lg-6">
+      <p>Showing 5 out of 25 items</p>
+    </div>
+    <div class="col-lg-6" >
+      <div *ngIf="dataArray.length > 0 && paginationObj.Get_MaxPages() > 0" style="margin-bottom: 20px;">
+        <div class="body d-flex justify-content-end">
+          <ul class="pagination pagination-primary m-b-0" style="cursor: pointer;">
+            <li class="page-item"><a class="page-link previousBtn" (click)="ChangePage(-1)">Previous</a></li>
+            <li *ngIf="paginationObj.Get_MaxPages() >= 1"
+                class="{{paginationObj.Get_PageActiveID() == 1 ? 'page-item active' : 'page-item'}}">
+              <a class="page-link"
+                 (click)="SelectPage(paginationObj.Get_PageNumbersArray()[0], 1)">{{paginationObj.Get_PageNumbersArray()[0]}}</a>
+            </li>
+            <li *ngIf="paginationObj.Get_MaxPages() >= 2"
+                class="{{paginationObj.Get_PageActiveID() == 2 ? 'page-item active' : 'page-item'}}">
+              <a class="page-link"
+                 (click)="SelectPage(paginationObj.Get_PageNumbersArray()[1], 2)">{{paginationObj.Get_PageNumbersArray()[1]}}</a>
+            </li>
+            <li *ngIf="paginationObj.Get_MaxPages() >= 3"
+                class="{{paginationObj.Get_PageActiveID() == 3 ? 'page-item active' : 'page-item'}}">
+              <a class="page-link"
+                 (click)="SelectPage(paginationObj.Get_PageNumbersArray()[2], 3)">{{paginationObj.Get_PageNumbersArray()[2]}}</a>
+            </li>
+            <li *ngIf="paginationObj.Get_MaxPages() >= 4"
+                class="{{paginationObj.Get_PageActiveID() == 4 ? 'page-item active' : 'page-item'}}">
+              <a class="page-link"
+                 (click)="SelectPage(paginationObj.Get_PageNumbersArray()[3], 4)">{{paginationObj.Get_PageNumbersArray()[3]}}</a>
+            </li>
+            <li class="page-item"><a class="page-link nextBtn" (click)="ChangePage(1)">Next</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="padding-bottom: 150px;"></div>
+  </div>
+

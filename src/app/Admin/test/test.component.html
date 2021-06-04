@@ -1,0 +1,453 @@
+<div class="container">
+  <h1 class="d-flex justify-content-center pt-2 primaryFont">This Is a Test Component 01</h1>
+  <div class="row m-5">
+    <!--Toast Section-->
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 col-12">
+      <button class="btn btn-primary" style="margin-right: 10px;" (click)="CreateToastWaiting()">Toast Waiting</button>
+      <button class="btn btn-success" style="margin-right: 10px;" (click)="CreateSuccessToast('abc')">Toast Success</button>
+      <button class="btn btn-danger" (click)="CreateErrorToast('abc')">Toast Failure</button>
+    </div>
+    <!--Modal Box Section-->
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 col-12">
+      <button class="btn btn-warning" (click)="OpenModel(myModal)">Model Box</button>
+    </div>
+  </div>
+  <!-- Payment Type-->
+  <div class="row m-5">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
+        <div class="card2 card border-0">
+          <div class="row mb-4 justify-content-center">
+            <h1>Payment Method</h1>
+          </div>
+          <div class="row mb-4 justify-content-center">
+            <a class="btn theme-btn ml-2"
+               (click)="PaymentType('card', cardConfirmModal)">
+              <i class="fa fa-credit-card pr-1"></i>Card
+            </a>
+            <a class="btn theme-btn ml-2"
+               (click)="PaymentType('cash', cashConfirmModal)">
+              <i class="fas fa-money-bill pr-1"></i>Cash
+            </a>
+          </div>
+        </div>
+      </div>
+  </div>
+  <!--Search Section-->
+  <div class="row m-5">
+    <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-xs-8 col-8 d-flex justify-content-center">
+      <input type="text" placeholder="Search Here" name="search" class="form-control" [(ngModel)]="searchKeyWord">
+    </div>
+    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-4 col-4 d-flex justify-content-center">
+      <button class="btn theme-btn ml-2" type="button" (click)="Search()">Search</button>
+    </div>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12" *ngIf="isDisplaySearchSection">
+    <div class="d-flex justify-content-center">
+      <container-element [ngSwitch]="searchState" style="width: 100%; padding-top: 20px;">
+        <!--Loading-->
+        <div class="d-flex justify-content-center" *ngSwitchCase="0">
+          <div class="spinner-border text-dark"></div>
+        </div>
+        <!--Empty Results Or Error-->
+        <div *ngSwitchCase="1">
+          <h5 class="text-center textThemeColor primaryText">{{searchBodyText}}</h5>
+        </div>
+        <!--Search Content-->
+        <div *ngSwitchCase="2" class="card body table-responsive members_profiles scrollSearch"
+             style="height: 400px; overflow-y: scroll;">
+        </div>
+      </container-element>
+    </div>
+  </div>
+  <!-- FormBuilder -->
+  <div class="row m-5">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-12">
+        <div class="card2 card border-0 px-4 py-5">
+          <div class="row mb-4 justify-content-center">
+            <h1>Form</h1>
+          </div>
+          <form [formGroup]="sampleForm">
+            <!--Image-->
+            <div class="row mb-5 box justify-content-center">
+              <div class="col-6 align-self-center">
+                <form id="frmFileUpload" class="dropzone" method="post"
+                      enctype="multipart/form-data">
+                  <div>
+                    <div class=""><i class="fas fa-arrow-alt-to-top"></i></div>
+                    <h5 class="text-center">Drop files here or click to upload.</h5>
+                  </div>
+                  <div class="fallback">
+                    <input class="text-center box" accept="image/*"
+                           style="cursor: pointer"
+                           name="image" id="businessLogo" type="file"
+                           (change)="CreateImageFile($event)" multiple/>
+                    <div><img class="imageBox rounded mx-auto d-block" [src]="uploadedFile"/></div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="row justify-content-center">
+              <!--Name-->
+              <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                <div class="form-group">
+                  <label><h6 class="text-sm">Name</h6></label>
+                  <input class="form-control"
+                         type="text" name="name" placeholder="Enter a  Name"
+                         formControlName="firstName"
+                         [ngClass]="{ 'is-invalid': submitted && formControl.firstName.errors }">
+                  <div *ngIf="submitted && formControl.firstName.errors" class="invalid-feedback">
+                    <div *ngIf="formControl.firstName.errors.required">Name is required</div>
+                    <div *ngIf="formControl.firstName.errors.emptySpace">Name is required</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Gender -->
+              <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                <div class="form-group">
+                  <label><h6 class="text-sm">Gender</h6></label>
+                  <select type="text" name="gender" placeholder="Select a gender"
+                          formControlName="gender" class="form-control"
+                          (change)="ChangeDropDownValue(gender, $event)"
+                          [ngClass]="{ 'is-invalid': submitted && formControl.gender.errors }">
+                    <option value="" disabled>Choose your Gender</option>
+                    <option *ngFor="let gender of Gender" [ngValue]="gender">{{gender}}</option>
+                  </select>
+                  <div *ngIf="submitted && formControl.gender.errors" class="invalid-feedback">
+                    <div *ngIf="formControl.gender.errors.required">Gender is required</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row justify-content-center">
+              <!-- Email -->
+              <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                <div class="form-group">
+                  <label><h6 class="text-sm">Email Address</h6></label>
+                  <input class="form-control" type="text" name="email"
+                         placeholder="Enter a valid email address" formControlName="email"
+                         [ngClass]="{ 'is-invalid': submitted && formControl.email.errors }">
+                  <div *ngIf="submitted && formControl.email.errors" class="invalid-feedback">
+                    <div *ngIf="formControl.email.errors.required">Email is required</div>
+                    <div *ngIf="formControl.email.errors.email">Email must be a valid email address</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Phone-->
+              <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                <div class="form-group">
+                  <label class="primaryFont"><h6 class="text-sm">Contact Number</h6></label>
+                  <input class="form-control" type="text" name="phone"
+                         placeholder="Enter a phone Number" formControlName="phone"
+                         [ngClass]="{ 'is-invalid': submitted && formControl.phone.errors }">
+                  <div *ngIf="submitted && formControl.phone.errors" class="invalid-feedback text-danger">
+                    <div *ngIf="formControl.phone.errors.required">Contact number is required</div>
+                    <div *ngIf="formControl.phone.errors.mustMatchPattern">Contact number is Invalid</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row justify-content-center">
+              <!--Date-->
+              <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                <div class="form-group">
+                  <label><h6 class="text-sm">Date</h6></label>
+                  <input type="date" name="date" [min]="CurrentCalender()"
+                         formControlName="date" class="form-control" id="date"
+                         [ngClass]="{ 'is-invalid': submitted && formControl.date.errors }"
+                         (change)="SelectDate(formControl.date.value)">
+                  <div *ngIf="submitted && formControl.date.errors" class="invalid-feedback text-danger">
+                    <div *ngIf="formControl.date.errors.required">Date is required</div>
+                  </div>
+                </div>
+              </div>
+              <!--City-->
+              <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                <div class="form-group">
+                  <label><h6 class="text-sm">City</h6></label>
+                  <select class="form-control"
+                          formControlName="cityName"
+                          [ngClass]="{ 'is-invalid': submitted && formControl.cityName.errors }"
+                          (change)="ChangeDropDownValue(cityName, $event)">
+                    <option value="" disabled>Choose your city</option>
+                    <option *ngFor="let city of City" [ngValue]="city">{{city}}</option>
+                  </select>
+                  <div class="invalid-feedback" *ngIf="submitted && formControl.cityName.errors">
+                    <div *ngIf="formControl.cityName.errors.required">Please enter your city name</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row justify-content-center">
+              <!-- Password -->
+              <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                <div class="form-group">
+                  <label><h6 class="text-sm">Password</h6></label>
+                  <div class="input-group">
+                    <input class="form-control"
+                           type="password" name="password"
+                           placeholder="Enter a password"
+                           formControlName="password"
+                           [type]="fieldTextType ? 'text' : 'password'"
+                           [ngClass]="{ 'is-invalid': submitted && formControl.password.errors }">
+                    <div class="input-group-append inputGroupAppend">
+                    <span class="input-group-text">
+                    <i class="fa"
+                       style="cursor: pointer"
+                       [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}"
+                       (click)="toggleFieldTextType()"></i>
+                  </span>
+                    </div>
+                    <div *ngIf="submitted && formControl.password.errors" class="invalid-feedback">
+                      <div *ngIf="formControl.password.errors.required">Password is required</div>
+                      <div *ngIf="formControl.password.errors.minlength">Password must be at least 6
+                        characters
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Confirm Password-->
+              <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                <div class="form-group">
+                  <label><h6 class="text-sm">Confirm Password</h6></label>
+                  <div class="input-group">
+                    <input class="form-control"
+                           formControlName="confirmPassword"
+                           [type]="confirmPasswordType ? 'text' : 'password'"
+                           [ngClass]="{ 'is-invalid': submitted && formControl.confirmPassword.errors }"
+                           type="password" name="password" placeholder="Confirm Password">
+                    <div class="input-group-append inputGroupAppend">
+                        <span class="input-group-text">
+                          <i class="fa" style="cursor: pointer"
+                             [ngClass]="{'fa-eye-slash': !confirmPasswordType,'fa-eye': confirmPasswordType}"
+                             (click)="toggleConfirmPasswordType()"></i>
+                        </span>
+                    </div>
+                    <div *ngIf="submitted && formControl.confirmPassword.errors" class="invalid-feedback">
+                      <div *ngIf="formControl.confirmPassword.errors.required">Confirm Password is required
+                      </div>
+                      <div *ngIf="formControl.confirmPassword.errors.mustMatch">Passwords must match</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3 px-3">
+              <button type="submit" class="btn theme-btn" (click)="onSubmit()">Submit</button>
+            </div>
+          </form>
+          <br>
+        </div>
+      </div>
+  </div>
+  <!-- Encrypt Form -->
+  <div class="row mb-5 d-flex justify-content-center">
+      <div class="col-lg-12">
+        <div class="card2 card border-0 px-4 py-5">
+          <div class="row mb-4 px-3 justify-content-center">
+            <h1>Encrypt & Decrypt</h1>
+          </div>
+          <div class="row">
+            <!--Encrypt-->
+            <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+              <div class="form-group">
+                <label><h6 class="text-sm">Encrypt in Front End And Decrypt in Backend</h6></label>
+                <input class="form-control" [(ngModel)]="plainText1"
+                       type="text" name="name" placeholder="Enter a Something">
+                <h5 class="p-3">Encrypt: {{frontEncrypt}}</h5>
+                <h5 class="pl-3">Decrypt: {{backDecrypt}}</h5>
+                <button type="submit" class="btn theme-btn" (click)="onEncryptSubmit()">Encrypt</button>
+              </div>
+            </div>
+            <!--Decrypt-->
+            <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+              <div class="form-group">
+                <label><h6 class="text-sm">Encrypted in Backend and Decrypted in Frontend</h6></label>
+                <input class="form-control" [(ngModel)]="plainText2"
+                       type="text" name="name" placeholder="Enter a Something">
+                <h5 class="p-3">Encrypt: {{backEncrypt}}</h5>
+                <h5 class="pl-3">Decrypt: {{frontDecrypt}}</h5>
+                <button type="submit" class="btn theme-btn" (click)="onDecryptSubmit()">Decrypt</button>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+  <!--Pagination-->
+  <div class="row mb-5">
+    <div class="col-lg-12">
+      <div *ngIf="dataArray.length > 0 && paginationObj.Get_MaxPages() > 0" style="margin-bottom: 20px;">
+        <div class="body d-flex justify-content-center">
+          <ul class="pagination pagination-primary m-b-0" style="cursor: pointer;">
+            <li class="page-item"><a class="page-link previousBtn" (click)="ChangePage(-1)"><i
+              class="fa fa-backward"></i></a></li>
+            <li *ngIf="paginationObj.Get_MaxPages() >= 1"
+                class="{{paginationObj.Get_PageActiveID() == 1 ? 'page-item active' : 'page-item'}}">
+              <a class="page-link"
+                 (click)="SelectPage(paginationObj.Get_PageNumbersArray()[0], 1)">{{paginationObj.Get_PageNumbersArray()[0]}}</a>
+            </li>
+            <li *ngIf="paginationObj.Get_MaxPages() >= 2"
+                class="{{paginationObj.Get_PageActiveID() == 2 ? 'page-item active' : 'page-item'}}">
+              <a class="page-link"
+                 (click)="SelectPage(paginationObj.Get_PageNumbersArray()[1], 2)">{{paginationObj.Get_PageNumbersArray()[1]}}</a>
+            </li>
+            <li *ngIf="paginationObj.Get_MaxPages() >= 3"
+                class="{{paginationObj.Get_PageActiveID() == 3 ? 'page-item active' : 'page-item'}}">
+              <a class="page-link"
+                 (click)="SelectPage(paginationObj.Get_PageNumbersArray()[2], 3)">{{paginationObj.Get_PageNumbersArray()[2]}}</a>
+            </li>
+            <li *ngIf="paginationObj.Get_MaxPages() >= 4"
+                class="{{paginationObj.Get_PageActiveID() == 4 ? 'page-item active' : 'page-item'}}">
+              <a class="page-link"
+                 (click)="SelectPage(paginationObj.Get_PageNumbersArray()[3], 4)">{{paginationObj.Get_PageNumbersArray()[3]}}</a>
+            </li>
+            <li class="page-item"><a class="page-link nextBtn" (click)="ChangePage(1)"><i class="fa fa-forward"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="padding-bottom: 150px;"></div>
+
+  <!--Modal-->
+  <ng-template #myModal let-modal>
+    <div class="app-modal-window">
+      <!--Header-->
+      <div class="modal-header">
+        <h1 class="modal-title primaryTextColor" id="modal-basic-title">Title</h1>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <h3 class="secondaryTextColor">Content</h3>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer d-flex justify-content-center text-light">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">Close</button>
+      </div>
+    </div>
+  </ng-template>
+  <!--Open card confirm modal-->
+  <ng-template #cardConfirmModal let-modal>
+    <div class="app-modal-window">
+      <div class="modal-body justify-content-center">
+        <div class="row d-flex justify-content-center">
+          <div class="text-center">
+            <h3>Are you sure want to confirm this payment Method?</h3>
+          </div>
+          <form #form method="post" action="https://sandbox.payhere.lk/pay/checkout">
+            <!-- Replace sandbox api to live API before production--> <!-- https://www.payhere.lk/pay/checkout -->
+            <div class="pl-2 pr-2">
+              <input class="form-control" type="hidden" name="merchant_id" value="1216455">
+              <!-- Replace your Merchant ID -->
+              <input type="hidden" name="return_url" value="https://xcite.lk/thankyou">
+              <!-- URL to redirect users when success -->
+              <input type="hidden" name="cancel_url" value="https://xcite.lk/checkout">
+              <!-- URL to redirect users when cancelled -->
+              <input type="hidden" name="notify_url" value="https://api.xcite.lk/order/payHere/notify">
+              <!-- URL to callback the status of the payment (Needs to be a URL accessible on a public IP/domain) -->
+              <div style="display:none">
+                <div class="row pb-1">
+                  <div class="col-lg-6">
+                    <input type="hidden" class="form-control pointerBlock" type="text" name="order_id"
+                           [(ngModel)]="payHereModel.order_id">
+                  </div>
+                  <div class="col-lg-6">
+                    <input type="hidden" class="form-control pointerBlock" type="text" name="items"
+                           [(ngModel)]="payHereModel.items">
+                  </div>
+                </div>
+                <div class="row pb-1">
+                  <div type="hidden" class="col-lg-6">
+                    <input class="form-control pointerBlock" type="text" name="currency"
+                           [(ngModel)]="payHereModel.currency">
+                  </div>
+                  <div type="hidden" class="col-lg-6">
+                    <input class="form-control pointerBlock" type="text" name="amount"
+                           [(ngModel)]="payHereModel.amount">
+                  </div>
+                </div>
+                <div class="row pb-1">
+                  <div type="hidden" class="col-lg-6">
+                    <input class="form-control pointerBlock" type="text" name="first_name"
+                           [(ngModel)]="payHereModel.first_name">
+                  </div>
+                  <div type="hidden" class="col-lg-6">
+                    <input class="form-control pointerBlock" type="text" name="last_name"
+                           [(ngModel)]="payHereModel.last_name">
+                  </div>
+                </div>
+                <div class="row pb-1">
+                  <div type="hidden" class="col-lg-6">
+                    <input class="form-control pointerBlock" type="text" name="email" [(ngModel)]="payHereModel.email">
+                  </div>
+                  <div type="hidden" class="col-lg-6">
+                    <input class="form-control pointerBlock" type="text" name="phone" [(ngModel)]="payHereModel.phone">
+                  </div>
+                </div>
+                <div class="row pb-1">
+                  <div type="hidden" class="col-lg-6">
+                    <input class="form-control pointerBlock" type="text" name="address"
+                           [(ngModel)]="payHereModel.address">
+                  </div>
+                  <div type="hidden" class="col-lg-6">
+                    <input class="form-control pointerBlock" type="text" name="city" [(ngModel)]="payHereModel.city">
+                  </div>
+                </div>
+                <div class="row pb-1">
+                  <div class="col-lg-6">
+                    <input type="hidden" class="form-control pointerBlock" type="hidden" name="country"
+                           [(ngModel)]="payHereModel.country">
+                  </div>
+                  <div class="col-lg-6">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <input type="submit" class="btn theme-btn" name="payhere" value="Confirm" (click)="form.submit()">
+        <input type="button" class="btn theme-btn-cancel mt-1" value="Cancel" (click)="Cancel()">
+      </div>
+    </div>
+  </ng-template>
+  <!--Open cash confirm modal-->
+  <ng-template #cashConfirmModal let-modal>
+    <div class="app-modal-window">
+      <div class="modal-body">
+        <!-- Basic Validation -->
+        <div class="row clearfix">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+              <div class="body">
+                <h5>Are you sure want to confirm this order ?</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- #END# Basic Validation -->
+      </div>
+      <div class="modal-footer d-flex justify-content-center text-light">
+        <button type="button" class="btn btn-info mr-2" (click)="Cancel()">Cancel</button>
+        <button type="button" class="btn btn-success" (click)="ConfirmCash()">Confirm</button>
+      </div>
+
+    </div>
+  </ng-template>
+</div>
